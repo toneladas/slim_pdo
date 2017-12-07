@@ -11,16 +11,22 @@ final class HomeAction
 {
     private $view;
     private $logger;
+    private $pdo;
 
-    public function __construct(LoggerInterface $logger, Twig $view)
+    public function __construct(LoggerInterface $logger, Twig $view, \PDO $pdo)
     {
         $this->view = $view;
         $this->logger = $logger;
+        $this->pdo = $pdo;
     }
 
     public function __invoke(Request $request, Response $response, $args)
     {
-        $this->view->render($response, 'home.html', []);
+        $usuarios = $this->pdo->query("SELECT * FROM usuarios");
+
+        $this->view->render($response, 'home.html', [
+            'usuarios' => $usuarios,
+        ]);
 
         return $response;
     }

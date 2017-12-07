@@ -4,6 +4,10 @@ return [
     'settings' => [
         'displayErrorDetails' => true,
         'db' => [
+            'host'     => 'localhost',
+            'user'     => 'root',
+            'password' => 'Aranda',
+            'dbname'   => 'slim_pdo',
         ],
         'logger'   => [
             'name'     => 'dev',

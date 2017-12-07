@@ -34,10 +34,21 @@ $container['view'] = function ($c) {
     return $view;
 };
 
+$container['pdo'] = function ($c) {
+    $pdo_config = $c->get('settings')['db'];
+
+    $dsn = "mysql:dbname=" . $pdo_config['dbname'] . ";host=" . $pdo_config['host'];
+    $pdo = new PDO($dsn, $pdo_config['user'], $pdo_config['password'], [
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+    ]);
+
+    return $pdo;
+};
+
 ################
 ### Actions ####
 ################
 
 $container[App\Action\HomeAction::class] = function ($c) {
-    return new App\Action\HomeAction($c['logger'], $c['view']);
+    return new App\Action\HomeAction($c['logger'], $c['view'], $c['pdo']);
 };

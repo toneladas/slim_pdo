@@ -1,2 +1,5 @@
 <h1>Página inicial</h1>
 <h3>Usuários</h3>
+{% for usuario in usuarios %}
+<li>{{usuario.nome}} - {{usuario.email}}</li>
+{% endfor %}
